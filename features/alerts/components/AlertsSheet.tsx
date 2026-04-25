@@ -18,11 +18,28 @@ function notificationLabel(n: AlertNotification, currency: Currency, fxRate: num
   }
 }
 
-function timeAgo(ts: number) {
+function formatTime(ts: number) {
+  const date = new Date(ts);
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hours = date.getHours();
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const ampm = hours < 12 ? "오전" : "오후";
+  const h = hours % 12 === 0 ? 12 : hours % 12;
+
   const diff = Math.floor((Date.now() - ts) / 1000);
-  if (diff < 60) return "방금";
-  if (diff < 3600) return `${Math.floor(diff / 60)}분 전`;
-  return `${Math.floor(diff / 3600)}시간 전`;
+  let relative: string;
+  if (diff < 60) {
+    relative = "방금";
+  } else if (diff < 3600) {
+    relative = `${Math.floor(diff / 60)}분 전`;
+  } else {
+    const rh = Math.floor(diff / 3600);
+    const rm = Math.floor((diff % 3600) / 60);
+    relative = rm > 0 ? `${rh}시간 ${rm}분 전` : `${rh}시간 전`;
+  }
+
+  return { absolute: `${month}월${day}일 ${ampm} ${h}시 ${minutes}분`, relative };
 }
 
 export default function AlertsSheet({
@@ -168,7 +185,9 @@ export default function AlertsSheet({
                           </p>
                         )}
                       </div>
-                      <span className="text-[11px] text-muted shrink-0">{timeAgo(n.triggeredAt)}</span>
+                      <span className="text-[11px] text-muted shrink-0 text-right leading-tight">
+                        {(() => { const { absolute, relative } = formatTime(n.triggeredAt); return <>{absolute}<br/><span className="text-muted/60">({relative})</span></>; })()}
+                      </span>
                       <button
                         onClick={() => dismissNotification(n.id)}
                         className="text-muted hover:text-white px-1 shrink-0"

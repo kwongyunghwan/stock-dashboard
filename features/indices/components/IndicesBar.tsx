@@ -1,11 +1,15 @@
 "use client";
 
 import { useIndices } from "../hooks/useIndices";
+import { useFxRate } from "@/features/currency/hooks/useFxRate";
 import { formatPct } from "@/shared/utils/format";
 import MarketStatusBadge from "@/features/market-status/components/MarketStatusBadge";
 
+const EXCLUDE = new Set(["^DJI"]);
+
 export default function IndicesBar() {
   const { indices, isLoading } = useIndices();
+  const fxRate = useFxRate();
 
   if (isLoading || indices.length === 0) {
     return (
@@ -20,9 +24,11 @@ export default function IndicesBar() {
     );
   }
 
+  const filtered = indices.filter((idx) => !EXCLUDE.has(idx.symbol));
+
   return (
     <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
-      {indices.map((idx) => {
+      {filtered.map((idx) => {
         const up = idx.changePercent >= 0;
         return (
           <div key={idx.symbol} className="flex items-center gap-1.5 tabular-nums">
@@ -39,6 +45,16 @@ export default function IndicesBar() {
           </div>
         );
       })}
+
+      <span className="text-border">|</span>
+
+      <div className="flex items-center gap-1 tabular-nums">
+        <span className="text-muted">환율</span>
+        <span className="font-semibold">
+          ₩{fxRate.toLocaleString("ko-KR", { maximumFractionDigits: 2 })}
+        </span>
+      </div>
+
       <span className="text-border">|</span>
       <MarketStatusBadge />
     </div>

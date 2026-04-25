@@ -69,7 +69,7 @@ export default function PortfolioSheet({
       <aside
         role="dialog"
         aria-label="내 잔고"
-        className={`fixed bottom-0 left-1/2 z-50 w-full max-w-7xl max-h-[40vh] flex flex-col bg-panel border border-b-0 border-border rounded-t-2xl shadow-2xl transform transition-transform duration-300 -translate-x-1/2 ${
+        className={`fixed bottom-0 left-1/2 z-50 w-full max-w-7xl max-h-[70vh] sm:max-h-[50vh] flex flex-col bg-panel border border-b-0 border-border rounded-t-2xl shadow-2xl transform transition-transform duration-300 -translate-x-1/2 ${
           open ? "translate-y-0" : "translate-y-full"
         }`}
       >

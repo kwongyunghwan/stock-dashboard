@@ -63,16 +63,10 @@ function Dashboard({ user }: { user: User }) {
       <header className="flex flex-col gap-3">
         {/* 상단 바: 제목 + 컨트롤 */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
-          <div className="flex flex-col gap-2">
+          <div>
             <h1 className="text-2xl sm:text-3xl font-bold">
               {user.name}님의 Dashboard
             </h1>
-            <p className="text-xs text-muted tracking-wide uppercase mt-1">
-              환율&nbsp;
-              <span className="text-base font-semibold text-white tracking-normal normal-case">
-                1 USD = ₩{fxRate.toLocaleString("ko-KR", { maximumFractionDigits: 2 })}
-              </span>
-            </p>
           </div>
           <div className="flex flex-wrap items-center justify-between gap-2 w-full sm:w-auto sm:justify-end">
             {/* 시장 정보 */}
