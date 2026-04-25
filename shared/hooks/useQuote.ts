@@ -8,7 +8,11 @@ export function useQuote(symbol: string) {
   const { data, isLoading } = useSWR<Quote>(
     symbol ? `/api/quote?symbol=${symbol}` : null,
     fetcher,
-    { refreshInterval: 15_000 }
+    {
+      refreshInterval: 30_000,
+      revalidateOnFocus: false,
+      keepPreviousData: true,
+    }
   );
   return { quote: data, isLoading };
 }

@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 
+type CacheEntry = { data: unknown; expiresAt: number };
+const cache = new Map<string, CacheEntry>();
+const TTL = 10_000;
+
 export async function GET(req: NextRequest) {
   const symbol = req.nextUrl.searchParams.get("symbol");
   if (!symbol) {
@@ -8,6 +12,11 @@ export async function GET(req: NextRequest) {
   const key = process.env.FINNHUB_API_KEY;
   if (!key) {
     return NextResponse.json({ error: "missing api key" }, { status: 500 });
+  }
+
+  const cached = cache.get(symbol);
+  if (cached && Date.now() < cached.expiresAt) {
+    return NextResponse.json(cached.data);
   }
 
   const url = `https://finnhub.io/api/v1/quote?symbol=${encodeURIComponent(
@@ -23,7 +32,7 @@ export async function GET(req: NextRequest) {
       );
     }
     const data = await res.json();
-    return NextResponse.json({
+    const payload = {
       symbol,
       price: data.c,
       change: data.d,
@@ -33,7 +42,9 @@ export async function GET(req: NextRequest) {
       open: data.o,
       prevClose: data.pc,
       ts: data.t,
-    });
+    };
+    cache.set(symbol, { data: payload, expiresAt: Date.now() + TTL });
+    return NextResponse.json(payload);
   } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 500 });
   }

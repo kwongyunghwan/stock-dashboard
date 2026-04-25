@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 
 export default function AddSymbolForm({
   onAdd,
+  right,
 }: {
   onAdd: (symbol: string) => void;
+  right?: ReactNode;
 }) {
   const [input, setInput] = useState("");
 
@@ -17,7 +19,7 @@ export default function AddSymbolForm({
   }
 
   return (
-    <form onSubmit={submit} className="flex gap-2">
+    <form onSubmit={submit} className="flex gap-2 items-center">
       <input
         value={input}
         onChange={(e) => setInput(e.target.value)}
@@ -30,6 +32,7 @@ export default function AddSymbolForm({
       >
         추가
       </button>
+      {right && <div className="ml-auto">{right}</div>}
     </form>
   );
 }

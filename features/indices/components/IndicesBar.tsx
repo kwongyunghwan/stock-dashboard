@@ -2,6 +2,7 @@
 
 import { useIndices } from "../hooks/useIndices";
 import { formatPct } from "@/shared/utils/format";
+import MarketStatusBadge from "@/features/market-status/components/MarketStatusBadge";
 
 export default function IndicesBar() {
   const { indices, isLoading } = useIndices();
@@ -24,10 +25,7 @@ export default function IndicesBar() {
       {indices.map((idx) => {
         const up = idx.changePercent >= 0;
         return (
-          <div
-            key={idx.symbol}
-            className="flex items-center gap-1.5 tabular-nums"
-          >
+          <div key={idx.symbol} className="flex items-center gap-1.5 tabular-nums">
             <span className="text-muted">{idx.name}</span>
             <span className="font-semibold">
               {idx.price.toLocaleString("en-US", {
@@ -41,6 +39,8 @@ export default function IndicesBar() {
           </div>
         );
       })}
+      <span className="text-border">|</span>
+      <MarketStatusBadge />
     </div>
   );
 }

@@ -12,3 +12,157 @@ body {
 * {
   box-sizing: border-box;
 }
+
+/* ─── 스크롤바 ─────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* 트랙 */
+::-webkit-scrollbar-track {
+  background: #141821;
+  border-radius: 4px;
+}
+
+/* 썸 */
+::-webkit-scrollbar-thumb {
+  background: #252b39;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8a93a6;
+}
+
+/* 위 버튼 */
+::-webkit-scrollbar-button:single-button:vertical:decrement {
+  display: block;
+  height: 14px;
+  background-color: #1b202b;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6' viewBox='0 0 6 6'%3E%3Cpath d='M3 1 L5.5 5 L0.5 5 Z' fill='%238a93a6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+::-webkit-scrollbar-button:single-button:vertical:decrement:hover {
+  background-color: #252b39;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6' viewBox='0 0 6 6'%3E%3Cpath d='M3 1 L5.5 5 L0.5 5 Z' fill='%23e6e8ec'/%3E%3C/svg%3E");
+}
+
+/* 아래 버튼 */
+::-webkit-scrollbar-button:single-button:vertical:increment {
+  display: block;
+  height: 14px;
+  background-color: #1b202b;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6' viewBox='0 0 6 6'%3E%3Cpath d='M3 5 L5.5 1 L0.5 1 Z' fill='%238a93a6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+::-webkit-scrollbar-button:single-button:vertical:increment:hover {
+  background-color: #252b39;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6' viewBox='0 0 6 6'%3E%3Cpath d='M3 5 L5.5 1 L0.5 1 Z' fill='%23e6e8ec'/%3E%3C/svg%3E");
+}
+
+/* 수평 스크롤 좌/우 버튼 */
+::-webkit-scrollbar-button:single-button:horizontal:decrement {
+  display: block;
+  width: 14px;
+  background-color: #1b202b;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6' viewBox='0 0 6 6'%3E%3Cpath d='M1 3 L5 0.5 L5 5.5 Z' fill='%238a93a6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+::-webkit-scrollbar-button:single-button:horizontal:increment {
+  display: block;
+  width: 14px;
+  background-color: #1b202b;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6' viewBox='0 0 6 6'%3E%3Cpath d='M5 3 L1 0.5 L1 5.5 Z' fill='%238a93a6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* 코너 (수평+수직 교차점) */
+::-webkit-scrollbar-corner {
+  background: #141821;
+}
+
+/* ─── number input 스피너 버튼 ───────────────────────── */
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  background-color: #1b202b;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  border-left: 1px solid #252b39;
+  opacity: 1;
+}
+
+input[type="number"]::-webkit-outer-spin-button {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath d='M4 2 L7 6 L1 6 Z' fill='%238a93a6'/%3E%3C/svg%3E");
+  border-radius: 0 6px 0 0;
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath d='M4 6 L7 2 L1 2 Z' fill='%238a93a6'/%3E%3C/svg%3E");
+  border-radius: 0 0 6px 0;
+}
+
+input[type="number"]::-webkit-outer-spin-button:hover,
+input[type="number"]::-webkit-inner-spin-button:hover {
+  background-color: #252b39;
+  background-image: none;
+}
+
+input[type="number"]::-webkit-outer-spin-button:hover {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath d='M4 2 L7 6 L1 6 Z' fill='%23e6e8ec'/%3E%3C/svg%3E");
+}
+
+input[type="number"]::-webkit-inner-spin-button:hover {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath d='M4 6 L7 2 L1 2 Z' fill='%23e6e8ec'/%3E%3C/svg%3E");
+}
+
+/* ─── 체크박스 ───────────────────────────────────────── */
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #252b39;
+  border-radius: 4px;
+  background-color: #1b202b;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.15s, border-color 0.15s;
+  flex-shrink: 0;
+}
+
+input[type="checkbox"]:hover {
+  border-color: #8a93a6;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #252b39;
+  border-color: #8a93a6;
+}
+
+input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 5px;
+  height: 9px;
+  border: 2px solid #e6e8ec;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}

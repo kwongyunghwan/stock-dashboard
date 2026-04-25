@@ -18,6 +18,23 @@ async function fetchSymbols(userId: string): Promise<string[]> {
   return (data ?? []).map((r: Row) => r.symbol);
 }
 
+function orderKey(userId: string) {
+  return `watchlist-order-${userId}`;
+}
+
+function applyStoredOrder(symbols: string[], userId: string): string[] {
+  try {
+    const raw = localStorage.getItem(orderKey(userId));
+    if (!raw) return symbols;
+    const stored: string[] = JSON.parse(raw);
+    const ordered = stored.filter((s) => symbols.includes(s));
+    const rest = symbols.filter((s) => !stored.includes(s));
+    return [...ordered, ...rest];
+  } catch {
+    return symbols;
+  }
+}
+
 async function seedDefaults(userId: string) {
   const sb = getSupabase();
   const rows = DEFAULT_SYMBOLS.map((symbol) => ({ user_id: userId, symbol }));
@@ -34,7 +51,7 @@ export function useWatchlist() {
       await seedDefaults(user.id);
       symbols = await fetchSymbols(user.id);
     }
-    return symbols;
+    return applyStoredOrder(symbols, user.id);
   });
 
   async function add(rawSymbol: string) {
@@ -71,5 +88,12 @@ export function useWatchlist() {
     );
   }
 
-  return { symbols: data ?? [], add, remove, isLoading };
+  function reorder(newSymbols: string[]) {
+    try {
+      localStorage.setItem(orderKey(user.id), JSON.stringify(newSymbols));
+    } catch {}
+    mutate(newSymbols, { revalidate: false });
+  }
+
+  return { symbols: data ?? [], add, remove, reorder, isLoading };
 }
